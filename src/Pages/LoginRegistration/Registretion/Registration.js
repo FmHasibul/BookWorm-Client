@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import { Result } from 'postcss';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
 
 const Registration = () => {
+    const { createNewUser } = useContext(AuthContext)
     const { register, handleSubmit } = useForm()
-    const [data, setData] = useState('')
-    console.log(data);
+
+    const handleRegSubmit = data => {
+
+        createNewUser(data.email, data.password)
+            .then(result =>
+                console.log(result.user))
+            .catch(err =>
+                console.log(err))
+    }
+
     return (
         <div>
             <h1>Register Here</h1>
 
-            <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))} className="card mx-auto w-full max-w-sm shadow-2xl bg-slate-300">
+            <form onSubmit={handleSubmit(handleRegSubmit)} className="card mx-auto w-full max-w-sm shadow-2xl bg-slate-300">
                 <div className="card-body">
                     <div className="form-control">
                         <label className="label">
@@ -22,7 +33,7 @@ const Registration = () => {
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input {...register("Email")} type="text" placeholder="Email" className="input input-bordered" />
+                        <input {...register("email")} type="text" placeholder="Email" className="input input-bordered" />
                     </div>
 
                     <div className="form-control w-full max-w-xs">
@@ -41,7 +52,7 @@ const Registration = () => {
                         </label>
                         <input {...register("password", { required: true })} type="text" placeholder="password" className="input input-bordered" />
                         <label className="label">
-                            <Link href="#" className="label-text-alt link link-hover">Create an Account</Link>
+                            <p>Allready have an account ?<Link to='/login' className="label-text-alt link link-hover">Login</Link></p>
                         </label>
                     </div>
                     <div className="form-control mt-6">

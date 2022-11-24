@@ -1,17 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext, } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
+import { GoogleAuthProvider } from 'firebase/auth';
+
 
 const Login = () => {
+    const { googleProvider, signIn } = useContext(AuthContext)
+    const googleLoginProvider = new GoogleAuthProvider()
     const { register, handleSubmit } = useForm()
     const handleLoginSubmit = data => {
+        signIn(data.email, data.password)
+            .then(result =>
+                console.log(result.user))
+    }
 
-        console.log('hi', data);
+    const googleLogin = () => {
+        googleProvider(googleLoginProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch((err) => {
+                console.log('error =', err)
+            })
     }
     return (
         <div>
-            <form onSubmit={handleSubmit(handleLoginSubmit)} className="card mx-auto w-full max-w-sm shadow-2xl bg-slate-300">
-                <div className="card-body">
+            <div className="card mx-auto w-full max-w-sm shadow-2xl bg-slate-300">
+                <form onSubmit={handleSubmit(handleLoginSubmit)} className="card-body">
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Email</span>
@@ -28,10 +45,16 @@ const Login = () => {
                         </label>
                     </div>
                     <div className="form-control mt-6">
-                        <button type='submit' className="btn btn-primary">Login</button>
+                        <button type='submit' className="btn btn-secondary">Login</button>
                     </div>
+
+                </form>
+
+                <div className="form-control mx-7 pb-7">
+                    <button onClick={googleLogin} className="btn btn-secondary">Sign in With Google</button>
                 </div>
-            </form>
+            </div>
+
         </div>
     );
 };

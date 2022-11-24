@@ -1,3 +1,4 @@
+import Blog from "../../Pages/Blog/Blog";
 import Login from "../../Pages/LoginRegistration/Login/Login";
 import Registration from "../../Pages/LoginRegistration/Registretion/Registration";
 
@@ -13,6 +14,10 @@ const Router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+            },
+            {
+                path: '/blog',
+                element: <Blog />
             },
             {
                 path: '/register',
