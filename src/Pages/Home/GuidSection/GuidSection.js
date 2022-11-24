@@ -33,7 +33,7 @@ const GuidSection = () => {
                     </div>
                 </div>
                 <div className="card  ">
-                    <img className='w-1/2' src={buysell} alt="Shoes" />
+                    <img className='w-1/2 container mx-auto' src={buysell} alt="Shoes" />
                     <div className="card-body">
                         <h2 className="card-title justify-center">
                             Buy and Sell safely
