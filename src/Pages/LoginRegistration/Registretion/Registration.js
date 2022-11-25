@@ -19,12 +19,28 @@ const Registration = () => {
                     displayName: data.name
                 }
                 userProfileInfo(userInfo)
-                    .then(() => { })
+                    .then(() => {
+                        saveUserInDb(data?.name, data?.email, data?.role)
+                    })
                     .catch(err => console.log(err))
             })
             .catch(err =>
                 console.log(err))
 
+    }
+    const saveUserInDb = (name, email, role) => {
+        const user = { name, email, role }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('save user', data);
+            })
     }
 
     return (
