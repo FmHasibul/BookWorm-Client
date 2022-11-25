@@ -1,20 +1,30 @@
-import { Result } from 'postcss';
-import React, { useContext, useState } from 'react';
+
+import React, { useContext, } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
 
 const Registration = () => {
-    const { createNewUser } = useContext(AuthContext)
+    const { createNewUser, userProfileInfo } = useContext(AuthContext)
     const { register, handleSubmit } = useForm()
 
-    const handleRegSubmit = data => {
+    const handleRegSubmit = (data) => {
 
         createNewUser(data.email, data.password)
-            .then(result =>
-                console.log(result.user))
+            .then(result => {
+                console.log(result.user)
+                toast.success('Account created successfully')
+                const userInfo = {
+                    displayName: data.name
+                }
+                userProfileInfo(userInfo)
+                    .then(() => { })
+                    .catch(err => console.log(err))
+            })
             .catch(err =>
                 console.log(err))
+
     }
 
     return (

@@ -1,6 +1,7 @@
 import Blog from "../../Pages/Blog/Blog";
 import Login from "../../Pages/LoginRegistration/Login/Login";
 import Registration from "../../Pages/LoginRegistration/Registretion/Registration";
+import ErrRoute from "../ErrorRoute/ErrRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../Layouts/Main");
@@ -28,6 +29,10 @@ const Router = createBrowserRouter([
                 element: <Login />
             },
         ]
+    },
+    {
+        path: '*',
+        element: <ErrRoute />
     }
 ])
 

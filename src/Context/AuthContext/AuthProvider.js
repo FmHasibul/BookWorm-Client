@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
     }
     //  profile update
     const userProfileInfo = (userData) => {
-        return updateProfile(auth, userData);
+        return updateProfile(user, userData);
     }
     // log Out 
     const logout = () => {

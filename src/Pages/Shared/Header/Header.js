@@ -3,14 +3,18 @@ import { Link } from 'react-router-dom'
 import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
 
 const Header = () => {
-    const { name } = useContext(AuthContext)
-    console.log(name);
+    const { user, logout } = useContext(AuthContext)
+    console.log(user);
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/register'>Register</Link></li>
         <li><Link to='/login'>Login</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
     </>
+
+    const handleLogout = () => {
+        logout()
+    }
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -34,13 +38,15 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="ml-auto">
-                    <div className="dropdown dropdown-hover">
-                        <label tabIndex={0} className="btn m-1">Hover</label>
-                        <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><a>Item 1</a></li>
-                            <li><a>Item 2</a></li>
-                        </ul>
-                    </div>
+                    {
+                        user ? <>
+                            <Link onClick={handleLogout} className='btn btn-outline btn-sm' > Logout</Link>
+                        </>
+                            :
+                            <>
+                                <Link className='btn btn-outline btn-sm' to='/login'> Login</Link>
+                            </>
+                    }
 
                 </div>
             </div>
