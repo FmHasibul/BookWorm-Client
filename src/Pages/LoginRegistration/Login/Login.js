@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useTitle from '../../../Hooks/UseTitle/useTitle';
+import useJWT from '../../../Hooks/useJWT';
 
 
 const Login = () => {
@@ -11,13 +12,21 @@ const Login = () => {
     const googleLoginProvider = new GoogleAuthProvider()
     const { register, handleSubmit } = useForm()
     const [loginError, setLoginError] = useState('')
-    useTitle("Login")
 
-
+    const [userEmail, setUserEmail] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
 
     const from = location.state?.from?.pathname || '/'
+
+    const [token] = useJWT(userEmail)
+    useTitle("Login")
+    if (token) {
+        navigate(from, { replace: true })
+    }
+
+
+
 
     const handleLoginSubmit = data => {
 
@@ -26,7 +35,8 @@ const Login = () => {
             .then(result => {
                 console.log(result.user)
                 setLoginError('')
-                navigate(from, { replace: true })
+                setUserEmail(data.email)
+
 
             })
             .catch(e => setLoginError('Email Or Password is not matching'))

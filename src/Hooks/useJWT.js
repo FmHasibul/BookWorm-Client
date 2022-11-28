@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const useToken = email => {
+const useJWT = email => {
 
     const [token, setToken] = useState('')
     useEffect(() => {
@@ -20,4 +20,4 @@ const useToken = email => {
     return [token]
 }
 
-export default useToken;
+export default useJWT;

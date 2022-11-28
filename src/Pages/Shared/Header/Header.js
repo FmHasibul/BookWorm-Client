@@ -4,7 +4,7 @@ import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
 
 const Header = () => {
     const { user, logout } = useContext(AuthContext)
-    console.log(user);
+    // console.log(user);
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/register'>Register</Link></li>

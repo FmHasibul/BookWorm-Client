@@ -1,14 +1,25 @@
 
-import React, { useContext, } from 'react';
+import React, { useContext, useState, } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
+import useTitle from '../../../Hooks/UseTitle/useTitle';
+import useJWT from '../../../Hooks/useJWT.js'
+
 
 const Registration = () => {
     const { createNewUser, userProfileInfo } = useContext(AuthContext)
     const { register, handleSubmit } = useForm()
+    const [userEmail, setUserEmail] = useState('')
+    useTitle('Registration')
+
+    const [token] = useJWT(userEmail)
     const navigate = useNavigate()
+    if (token) {
+        navigate('/')
+    }
+
 
     const handleRegSubmit = (data) => {
 
@@ -24,6 +35,7 @@ const Registration = () => {
                     })
                     .catch(err => console.log(err))
                 saveUserInDb(data?.name, data?.email, data?.role)
+                setUserEmail(data.email)
             })
             .catch(err =>
                 console.log(err))
@@ -41,7 +53,7 @@ const Registration = () => {
             .then(res => res.json())
             .then(data => {
                 // console.log('save user', data);
-                navigate('/')
+
             })
     }
 
@@ -55,13 +67,13 @@ const Registration = () => {
                         <label className="label">
                             <span className="label-text">Name</span>
                         </label>
-                        <input {...register("name")} type="text" placeholder="Name" className="input input-bordered" />
+                        <input {...register("name", { required: true })} type="text" placeholder="Name" className="input input-bordered" />
                     </div>
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input {...register("email")} type="text" placeholder="Email" className="input input-bordered" />
+                        <input {...register("email", { required: true })} type="text" placeholder="Email" className="input input-bordered" />
                     </div>
 
                     <div className="form-control w-full max-w-xs">

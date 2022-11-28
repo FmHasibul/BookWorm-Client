@@ -1,39 +1,76 @@
+
 import React, { useContext } from 'react';
+import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../../../Context/AuthContext/AuthProvider';
 
 const AddProducts = () => {
     const { user } = useContext(AuthContext)
+    const imgKey = `a23314678e70cf4f7a8c05f68caa3ef3`
+    // console.log(imgKey);
 
-    const handlePostSubmit = (e) => {
-        e.preventDefault()
+    const { register, handleSubmit } = useForm()
 
-        const form = e.target;
-        const name = form.itemName.value;
-        const OriginalPrice = form.originalPrice.value;
+
+    const handlePostSubmit = (itemData) => {
+        const form = itemData;
+        const name = form.itemName
+        const OriginalPrice = form.originalPrice
         const sellerName = user.displayName
-        const price = form.price.value;
-        const email = user?.email;
-        const location = form.location.value
-        const used = form.period.value;
-        const condition = form.condition.value;
-        const categoryId = form.categoryid.value
+        const price = form.price
+        const email = user?.email
+        const location = form.location
+        const used = form.period
+        const condition = form.condition
+        const categoryId = form.categoryId
         const categoryName = idToName(categoryId)
+        const image = form.img[0]
+        // console.log(picture);
 
-        const productData = {
-            name,
-            OriginalPrice,
-            price,
-            status: 'available',
-            sellerName,
-            email,
-            location,
-            used,
-            condition,
-            categoryId,
-            categoryName
+        const formData = new FormData();
+        formData.append('image', image);
+        // console.log(formData.get('image'));
+        const url = `https://api.imgbb.com/1/upload?key=${imgKey}`
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgInfo => {
+                if (imgInfo.success) {
+                    const picture = imgInfo.data.url;
+                    const productData = {
+                        name,
+                        OriginalPrice,
+                        price,
+                        status: 'available',
+                        sellerName,
+                        email,
+                        location,
+                        used,
+                        condition,
+                        categoryId,
+                        categoryName,
+                        picture,
+                    }
+                    console.log(productData);
+                    fetch(`http://localhost:5000/products`, {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(productData)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                        })
+                }
+            })
 
-        }
-        console.log(productData);
+
+        // console.log(productData);
+
 
     }
     // categoryId to categoryName 
@@ -53,70 +90,71 @@ const AddProducts = () => {
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content ">
                     <div className="card w-full  shadow-2xl bg-base-100">
-                        <form onSubmit={handlePostSubmit} className="card-body">
+                        <form onSubmit={handleSubmit(handlePostSubmit)} className="card-body">
                             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Books Name</span>
                                     </label>
-                                    <input name="itemName" type="text" placeholder="Name of Your product" required className="input input-bordered input-sm" />
+                                    <input {...register("itemName", { required: true })} name="itemName" type="text" placeholder="Name of Your product" required className="input input-bordered input-sm" />
                                 </div>
                                 <div onBlur={idToName} className="p-0" >
                                     <label className="label">
                                         <span className="label-text">Books Category</span>
                                     </label>
-                                    <select name='categoryid' className="select w-full select-sm select-bordered">
+                                    <select {...register("categoryId", { required: true })} name='categoryId' className="select w-full select-sm select-bordered">
                                         <option value={1} selected>Academic</option>
                                         <option value={2}>Literature</option>
                                         <option value={3}>Fantasy</option>
                                     </select>
                                 </div>
-                                <div className="form-control">
-                                    <label className="label">
-                                        <span className="label-text">Product Image</span>
-                                    </label>
-                                    <input type="text" name="picture" placeholder="Image Url" className="input input-bordered input-sm" />
-                                </div>
+
 
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Original Price</span>
                                     </label>
-                                    <input type="number" name="originalPrice" placeholder="Original Price" require className="input input-bordered input-sm" />
+                                    <input type="number" {...register("originalPrice", { required: true })} name="originalPrice" placeholder="Original Price" required className="input input-bordered input-sm" />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Price</span>
                                     </label>
-                                    <input type="number" name="price" placeholder="Price" required className="input input-bordered input-sm" />
+                                    <input type="number" name="price" {...register("price", { required: true })} placeholder="Price" required className="input input-bordered input-sm" />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Location</span>
                                     </label>
-                                    <input type="Text" name="location" placeholder="Price" required className="input input-bordered input-sm" />
+                                    <input type="Text" name="location" {...register("location", { required: true })} placeholder="Price" required className="input input-bordered input-sm" />
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Year of using</span>
                                     </label>
-                                    <input type="Text" name="period" placeholder="Using Period" required className="input input-bordered input-sm" />
+                                    <input type="Text" name="period" {...register("period", { required: true })} placeholder="Using Period" required className="input input-bordered input-sm" />
                                 </div>
                                 <div  >
                                     <label className="label">
                                         <span className="label-text">Choose product condition</span>
                                     </label>
-                                    <select name='condition' className="select w-full select-sm select-bordered">
-                                        <option value={1} selected>Excellent</option>
-                                        <option value={2}>Good</option>
-                                        <option value={3}>Fair</option>
+                                    <select name='condition' {...register("condition", { required: true })} required className="select w-full select-sm select-bordered">
+                                        <option >Excellent</option>
+                                        <option >Good</option>
+                                        <option >Fair</option>
                                     </select>
                                 </div>
                                 <div className="form-control">
                                     <label className="label">
                                         <span className="label-text">Your Phone Number</span>
                                     </label>
-                                    <input type="number" name="number" placeholder="Phone number " required className="input input-bordered input-sm" />
+                                    <input type="number" name="number" {...register("number", { required: true })} placeholder="Phone number " required className="input input-bordered input-sm" />
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Product Image</span>
+                                    </label>
+                                    <input type="file" name="img" {...register("img", { required: true })} placeholder="Upload Photo" className="input input-bordered input-sm" />
                                 </div>
 
                             </div>
