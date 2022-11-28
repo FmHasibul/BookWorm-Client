@@ -2,12 +2,13 @@
 import React, { useContext, } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
 
 const Registration = () => {
     const { createNewUser, userProfileInfo } = useContext(AuthContext)
     const { register, handleSubmit } = useForm()
+    const navigate = useNavigate()
 
     const handleRegSubmit = (data) => {
 
@@ -20,9 +21,9 @@ const Registration = () => {
                 }
                 userProfileInfo(userInfo)
                     .then(() => {
-                        saveUserInDb(data?.name, data?.email, data?.role)
                     })
                     .catch(err => console.log(err))
+                saveUserInDb(data?.name, data?.email, data?.role)
             })
             .catch(err =>
                 console.log(err))
@@ -39,7 +40,8 @@ const Registration = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log('save user', data);
+                // console.log('save user', data);
+                navigate('/')
             })
     }
 

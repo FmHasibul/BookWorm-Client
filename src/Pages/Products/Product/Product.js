@@ -1,7 +1,11 @@
 import React from 'react';
 
-const Product = ({ product }) => {
-    const { condition, location, name, originalPrice, picture, price, sellerName, status, used, _id } = product
+const Product = ({ product, setOrderProduct }) => {
+    const { condition, location, name, originalPrice, picture, price, sellerName, status, used, } = product
+    const modalhandle = () => {
+        setOrderProduct(product)
+        console.log(' im here');
+    }
     return (
         <div>
             <div className="card card-compact  bg-base-100 shadow-xl">
@@ -24,7 +28,7 @@ const Product = ({ product }) => {
                     </div>
                     <h2 className="card-title">Seller: {sellerName}</h2>
                     <div className="card-actions justify-center">
-                        <button className="btn btn-outline hover:border-y-4 btn-sm w-1/2">Buy Now</button>
+                        <label onClick={modalhandle} htmlFor="order-modal" className="btn btn-outline hover:border-y-4 btn-sm w-1/2">Order Now</label>
                     </div>
                 </div>
             </div>

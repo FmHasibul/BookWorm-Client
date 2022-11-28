@@ -34,10 +34,32 @@ const Login = () => {
         googleProvider(googleLoginProvider)
             .then(result => {
                 const user = result.user;
+                saveUserInDb(user)
                 console.log(user);
             })
             .catch((err) => {
                 console.log('error =', err)
+            })
+    }
+
+    const saveUserInDb = (userInfo) => {
+        const { displayName, email } = userInfo
+        const users = {
+            name: displayName,
+            email,
+            role: 'Buyer'
+        }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(users)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log('save user', data);
+                navigate(from, { replace: true })
             })
     }
     return (
