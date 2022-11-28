@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
+import useTitle from '../../../Hooks/UseTitle/useTitle';
 
 
 const Login = () => {
@@ -10,6 +11,7 @@ const Login = () => {
     const googleLoginProvider = new GoogleAuthProvider()
     const { register, handleSubmit } = useForm()
     const [loginError, setLoginError] = useState('')
+    useTitle("Login")
 
 
     const navigate = useNavigate()

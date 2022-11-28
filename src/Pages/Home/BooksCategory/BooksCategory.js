@@ -9,7 +9,7 @@ const BooksCategory = () => {
             .then(res => res.json())
 
     })
-    console.log(data);
+    // console.log(data);
     return (
         <div className='my-10 '>
             <h2 className="text-3xl mb-10 text-green-600 font-semibold ">You choose Books under these category!!</h2>

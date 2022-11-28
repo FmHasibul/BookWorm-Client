@@ -45,10 +45,6 @@ const OrderModal = ({ orderProduct, setOrderProduct }) => {
     }
     return (
         <div>
-            {/* The button to open modal */}
-
-
-            {/* Put this part before </body> tag */}
             <input type="checkbox" id="order-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
