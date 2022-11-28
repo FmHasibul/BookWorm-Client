@@ -1,6 +1,20 @@
+import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
 const Allbuyers = () => {
+
+
+    const url = `http://localhost:5000/users/buyers?role=buyer`
+
+    const { data: users = [], refetch } = useQuery({
+        queryKey: ["users"],
+        queryFn: async () => {
+            const res = await fetch(url)
+            const data = await res.json();
+            console.log(data);
+            return data;
+        }
+    });
     return (
         <div>
             <table className="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">

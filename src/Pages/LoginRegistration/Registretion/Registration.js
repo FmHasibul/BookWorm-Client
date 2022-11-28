@@ -34,6 +34,7 @@ const Registration = () => {
                     .then(() => {
                     })
                     .catch(err => console.log(err))
+                console.log(data);
                 saveUserInDb(data?.name, data?.email, data?.role)
                 setUserEmail(data.email)
             })
@@ -81,8 +82,8 @@ const Registration = () => {
                             <span className="label-text">Choose account type</span>
                         </label>
                         <select {...register("role", { required: true })} className="select select-bordered">
-                            <option selected>Buyer</option>
-                            <option>Seller</option>
+                            <option value='buyer' >Buyer</option>
+                            <option value='seller' >Seller</option>
                         </select>
 
                     </div>

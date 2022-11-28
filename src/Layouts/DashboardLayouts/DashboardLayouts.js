@@ -21,7 +21,7 @@ const DashboardLayouts = () => {
                                 <li><Link to='/dashboard/addProducts'>Add a Products</Link></li>
                                 <li><Link>My Products</Link></li>
                                 {/* for admin */}
-                                <li><Link>All Sellers</Link></li>
+                                <li><Link to='/dashboard/sellers'>All Sellers</Link></li>
                                 <li><Link to='/dashboard/buyers'>All Buyers</Link></li>
                                 <li><Link to='/dashboard/users'>All users</Link></li>
                                 {/* for buyers  */}

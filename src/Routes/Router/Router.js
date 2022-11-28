@@ -1,6 +1,7 @@
 import DashboardLayouts from "../../Layouts/DashboardLayouts/DashboardLayouts";
 import Dashboard from "../../Pages/AdminRoute/Dashboard/Dashboard";
 import Allbuyers from "../../Pages/AdminRoute/Dashboard/ForAdmin/AllBuyers/Allbuyers";
+import AllSellers from "../../Pages/AdminRoute/Dashboard/ForAdmin/AllSellers/AllSellers";
 import MyOrders from "../../Pages/AdminRoute/Dashboard/ForBuyer/MyOrders/MyOrders";
 import AddProducts from "../../Pages/AdminRoute/Dashboard/ForSeller/AddProducts/AddProducts";
 import Users from "../../Pages/AdminRoute/Dashboard/Users";
@@ -65,6 +66,10 @@ const Router = createBrowserRouter([
             {
                 path: '/dashboard/buyers',
                 element: <Allbuyers />
+            },
+            {
+                path: '/dashboard/sellers',
+                element: <AllSellers />
             },
         ]
     },
