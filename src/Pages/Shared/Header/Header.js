@@ -8,7 +8,6 @@ const Header = () => {
     const menuItems = <>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/register'>Register</Link></li>
-        <li><Link to='/login'>Login</Link></li>
         <li><Link to='/blog'>Blog</Link></li>
     </>
 
@@ -40,7 +39,7 @@ const Header = () => {
                 <div className="ml-auto">
                     {
                         user ? <>
-                            <Link className='btn  btn-sm' to='/dashboard'> Dashboard</Link>
+                            <Link className='btn btn-outline btn-sm' to='/dashboard'> Dashboard</Link>
                             <Link onClick={handleLogout} className='btn btn-outline btn-sm' > Logout</Link>
                         </>
                             :

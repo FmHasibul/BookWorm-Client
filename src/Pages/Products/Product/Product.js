@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { FaCheckCircle } from "@react-icons/all-files/fa/FaCheckCircle";
+
 const Product = ({ product, setOrderProduct }) => {
     const { condition, location, name, originalPrice, picture, price, sellerName, status, used, } = product
     const modalhandle = () => {
@@ -26,7 +28,7 @@ const Product = ({ product, setOrderProduct }) => {
                         <p className=''>Stock: {status}</p>
 
                     </div>
-                    <h2 className="card-title">Seller: {sellerName}</h2>
+                    <h2 className="card-title">Seller: {sellerName}<span className='ml-3 text-green-600'><FaCheckCircle /></span></h2>
                     <div className="card-actions justify-center">
                         <label onClick={modalhandle} htmlFor="order-modal" className="btn btn-outline hover:border-y-4 btn-sm w-1/2">Order Now</label>
                     </div>

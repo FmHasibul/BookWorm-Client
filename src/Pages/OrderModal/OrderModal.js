@@ -5,6 +5,7 @@ import { AuthContext } from '../../Context/AuthContext/AuthProvider';
 const OrderModal = ({ orderProduct, setOrderProduct }) => {
     const { user } = useContext(AuthContext)
     const { name, price, sellerName, _id } = orderProduct
+
     const handleOrder = (e) => {
         e.preventDefault();
         const form = e.target;
@@ -17,6 +18,7 @@ const OrderModal = ({ orderProduct, setOrderProduct }) => {
             itemId: _id,
             buyer: buyerName,
             email,
+            product: name,
             phone,
             location,
             price,

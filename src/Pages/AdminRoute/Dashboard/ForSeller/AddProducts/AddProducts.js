@@ -1,6 +1,7 @@
 
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../../../Context/AuthContext/AuthProvider';
 
 const AddProducts = () => {
@@ -63,6 +64,7 @@ const AddProducts = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
+                            toast.success('Product added')
                             console.log(data);
                         })
                 }
@@ -75,10 +77,10 @@ const AddProducts = () => {
     }
     // categoryId to categoryName 
     const idToName = (id) => {
-        if (id == 1) {
+        if (id === 'a') {
             return 'Acedemic'
         }
-        else if (id == 2) {
+        else if (id === 'b') {
             return 'Literature'
         }
         else {
@@ -103,9 +105,9 @@ const AddProducts = () => {
                                         <span className="label-text">Books Category</span>
                                     </label>
                                     <select {...register("categoryId", { required: true })} name='categoryId' className="select w-full select-sm select-bordered">
-                                        <option value={1} selected>Academic</option>
-                                        <option value={2}>Literature</option>
-                                        <option value={3}>Fantasy</option>
+                                        <option value={'a'}>Academic</option>
+                                        <option value={'b'}>Literature</option>
+                                        <option value={'c'}>Fantasy</option>
                                     </select>
                                 </div>
 

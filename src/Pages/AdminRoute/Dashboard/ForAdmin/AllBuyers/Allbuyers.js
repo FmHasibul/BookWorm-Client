@@ -1,24 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import Progress from '../../../../Progress/Progress';
 
 const Allbuyers = () => {
 
-
     const url = `http://localhost:5000/users/buyers?role=buyer`
 
-    const { data: users = [], refetch } = useQuery({
-        queryKey: ["users"],
+
+    const { data: users = [], isLoading } = useQuery({
+        queryKey: ['users',],
         queryFn: async () => {
-            const res = await fetch(url)
+            const res = await fetch(url, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
             const data = await res.json();
             console.log(data);
             return data;
+
         }
-    });
+    })
 
-    const handleVerifySeller = () => {
-
+    if (isLoading) {
+        return <Progress />
     }
+
+
     return (
         <div className='my-5'>
             <h2 className="text-3xl mb-5 underline">All Buyers</h2>

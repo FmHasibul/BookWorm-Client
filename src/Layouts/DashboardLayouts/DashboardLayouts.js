@@ -1,8 +1,16 @@
-import React from 'react';
+
 import Header from '../../Pages/Shared/Header/Header';
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../Context/AuthContext/AuthProvider';
+import useAdmin from '../../Hooks/useAdmin';
+import useSeller from '../../Hooks/useSeller';
 
 const DashboardLayouts = () => {
+    const { user } = useContext(AuthContext)
+    const [isAdmin] = useAdmin(user?.email)
+    const [isSeller] = useSeller(user?.email)
+
     return (
         <div>
             <Header />
@@ -18,12 +26,21 @@ const DashboardLayouts = () => {
                         {
                             <>
                                 {/* for seller  */}
-                                <li><Link to='/dashboard/addProducts'>Add a Products</Link></li>
-                                <li><Link>My Products</Link></li>
+                                {
+                                    isSeller && <>
+                                        <li><Link to='/dashboard/addProducts'>Add a Products</Link></li>
+                                        <li><Link to='/dashboard/myProducts'>My Products</Link></li>
+                                    </>
+                                }
+
                                 {/* for admin */}
-                                <li><Link to='/dashboard/sellers'>All Sellers</Link></li>
-                                <li><Link to='/dashboard/buyers'>All Buyers</Link></li>
-                                <li><Link to='/dashboard/users'>All users</Link></li>
+                                {
+                                    isAdmin && <>
+                                        <li><Link to='/dashboard/sellers'>All Sellers</Link></li>
+                                        <li><Link to='/dashboard/buyers'>All Buyers</Link></li>
+                                        <li><Link to='/dashboard/users'>Manage Users</Link></li>
+                                    </>
+                                }
                                 {/* for buyers  */}
                                 <li><Link to='/dashboard/orders'>My Orders</Link></li>
                             </>
