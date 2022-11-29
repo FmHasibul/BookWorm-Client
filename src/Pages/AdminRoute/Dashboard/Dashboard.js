@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { FaSmileBeam } from "@react-icons/all-files/fa/FaSmileBeam";
+import useTitle from '../../../Hooks/UseTitle/useTitle';
 
 const Dashboard = () => {
+    useTitle('Dashboard')
     return (
         <div>
             <div className=" flex items-center justify-center  h-screen  bg-gradient-to-r    from-green-200    to-lime-100  ">

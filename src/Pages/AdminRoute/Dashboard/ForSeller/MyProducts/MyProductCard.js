@@ -2,7 +2,7 @@ import React from 'react';
 
 const MyProductCard = ({ product, i }) => {
 
-    const { condition, location, name, originalPrice, picture, price, sellerName, status, used, } = product
+    const { name, picture, price, status, } = product
     return (
         <div>
             <div className="card w-96  bg-base-100 shadow-xl image-full">
