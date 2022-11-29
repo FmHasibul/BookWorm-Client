@@ -30,7 +30,6 @@ const Allbuyers = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Make Admin</th>
                             <th>Delete a users</th>
                         </tr>
                     </thead>
@@ -40,7 +39,7 @@ const Allbuyers = () => {
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>{user?.role !== 'Admin' && <button onClick={() => handleVerifySeller(user._id)} className='btn btn-outline btn-sm'>Make Admin</button>}</td>
+
                                 <td className="tooltip  tooltip-warning" data-tip="DELETE"><button className='btn bg-red-600 text-2xl btn-sm'>X</button></td>
                             </tr>
                         ))}

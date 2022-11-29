@@ -21,7 +21,7 @@ const AddProducts = () => {
         const location = form.location
         const used = form.period
         const condition = form.condition
-        const categoryId = form.categoryId
+        const categoryId = parseInt(form.categoryId)
         const categoryName = idToName(categoryId)
         const image = form.img[0]
         // console.log(picture);
