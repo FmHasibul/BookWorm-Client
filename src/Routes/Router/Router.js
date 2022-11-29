@@ -1,15 +1,18 @@
 import DashboardLayouts from "../../Layouts/DashboardLayouts/DashboardLayouts";
 import Dashboard from "../../Pages/AdminRoute/Dashboard/Dashboard";
 import Allbuyers from "../../Pages/AdminRoute/Dashboard/ForAdmin/AllBuyers/Allbuyers";
+import Users from "../../Pages/AdminRoute/Dashboard/ForAdmin/AllBuyers/Users";
 import AllSellers from "../../Pages/AdminRoute/Dashboard/ForAdmin/AllSellers/AllSellers";
 import MyOrders from "../../Pages/AdminRoute/Dashboard/ForBuyer/MyOrders/MyOrders";
 import AddProducts from "../../Pages/AdminRoute/Dashboard/ForSeller/AddProducts/AddProducts";
-import Users from "../../Pages/AdminRoute/Dashboard/Users";
+
 import Blog from "../../Pages/Blog/Blog";
 import Login from "../../Pages/LoginRegistration/Login/Login";
 import Registration from "../../Pages/LoginRegistration/Registretion/Registration";
 import Products from "../../Pages/Products/Products";
+import AdminRoute from "../AdminRoute/AdminRoute";
 import ErrRoute from "../ErrorRoute/ErrRoute";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Main } = require("../../Layouts/Main");
@@ -45,7 +48,7 @@ const Router = createBrowserRouter([
     },
     {
         path: '/dashboard',
-        element: <DashboardLayouts />,
+        element: <PrivateRoute><DashboardLayouts /></PrivateRoute>,
         children: [
             {
                 path: '/dashboard',
@@ -61,7 +64,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/dashboard/users',
-                element: <Users />
+                element: <AdminRoute><Users /></AdminRoute>
             },
             {
                 path: '/dashboard/buyers',
