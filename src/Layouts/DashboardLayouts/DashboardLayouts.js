@@ -27,7 +27,7 @@ const DashboardLayouts = () => {
                             <>
                                 {/* for seller  */}
                                 {
-                                    isSeller && <>
+                                    (isSeller || isAdmin) && <>
                                         <li><Link to='/dashboard/addProducts'>Add a Products</Link></li>
                                         <li><Link to='/dashboard/myProducts'>My Products</Link></li>
                                     </>
@@ -41,7 +41,7 @@ const DashboardLayouts = () => {
                                         <li><Link to='/dashboard/users'>Manage Users</Link></li>
                                     </>
                                 }
-                                {/* for buyers  */}
+                                {/* for All  */}
                                 <li><Link to='/dashboard'>My Orders</Link></li>
                             </>
                         }

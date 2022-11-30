@@ -6,7 +6,7 @@ import buysell from '../../../assets/buysell.svg'
 const GuidSection = () => {
     return (
         <div className='container my-10'>
-            <h2 className="text-3xl mb-[-30px] text-green-600 font-semibold ">How You can Be Seller!!</h2>
+            <h2 className="text-3xl mb-[-30px]  text-green-600 font-semibold ">How You can Be Seller!!</h2>
             <h2 className="text-3xl mb-10 animate-pulse text-gray-700-600 font-semibold decoration-double ">...............     ...............        ............</h2>
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
