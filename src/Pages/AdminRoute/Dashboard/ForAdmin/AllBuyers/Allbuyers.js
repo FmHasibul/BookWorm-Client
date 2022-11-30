@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 import Progress from '../../../../Progress/Progress';
+import useTitle from '../../../../../Hooks/UseTitle/useTitle'
 
 const Allbuyers = () => {
-
+    useTitle('Buyers')
     const url = `https://book-resell-server-fmhasibul.vercel.app/users/buyers?role=buyer`
 
 
-    const { data: users = [], isLoading } = useQuery({
+    const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users',],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -21,6 +23,26 @@ const Allbuyers = () => {
 
         }
     })
+
+    const handleDelete = (id) => {
+        const url = `https://book-resell-server-fmhasibul.vercel.app/users/${id}`
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                window.confirm("Want to delete?");
+                console.log(data);
+                if (data.deletedCount > 0) {
+                    toast.success('Deleted')
+                }
+                refetch()
+
+            })
+    }
 
     if (isLoading) {
         return <Progress />
@@ -48,7 +70,7 @@ const Allbuyers = () => {
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
 
-                                <td className="tooltip  tooltip-warning" data-tip="DELETE"><button className='btn bg-red-600 text-2xl btn-sm'>X</button></td>
+                                <td className="tooltip  tooltip-warning" data-tip="DELETE"><button onClick={() => handleDelete(user._id)} className='btn bg-red-600 text-2xl btn-sm'>X</button></td>
                             </tr>
                         ))}
                     </tbody>

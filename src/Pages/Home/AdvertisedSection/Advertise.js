@@ -4,9 +4,9 @@ import Progress from '../../Progress/Progress';
 import ProductCard from './ProductCard';
 
 const Advertise = () => {
-    const url = `https://book-resell-server-fmhasibul.vercel.app/advertise`
+    const url = `https://book-resell-server-fmhasibul.vercel.app/seller/advertise`
     // https://book-resell-server-fmhasibul.vercel.app/category
-    const { data = [], isLoading } = useQuery({
+    const { data = [], isLoading, refetch } = useQuery({
         queryKey: [],
         queryFn: async () => {
             const res = await fetch(url)
@@ -29,6 +29,7 @@ const Advertise = () => {
                         {data.map(singleProduct => <ProductCard
                             key={singleProduct._id}
                             singleProduct={singleProduct}
+                            refetch={refetch}
                         />)}
                     </div>
 

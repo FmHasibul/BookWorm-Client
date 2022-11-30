@@ -3,11 +3,11 @@ import toast from 'react-hot-toast';
 
 
 // Advertise Product Card 
-const ProductCard = ({ singleProduct }) => {
+const ProductCard = ({ singleProduct, refetch }) => {
     const { condition, location, name, originalPrice, picture, price, sellerName, status, used, _id } = singleProduct
 
     const handleDelete = (id) => {
-        const url = `https://book-resell-server-fmhasibul.vercel.app/advertise/${id}`
+        const url = `https://book-resell-server-fmhasibul.vercel.app/seller/advertise//${id}`
         console.log(id);
         fetch(url, {
             method: 'DELETE',
@@ -21,6 +21,7 @@ const ProductCard = ({ singleProduct }) => {
                 console.log(data);
                 if (data.deletedCount > 0) {
                     toast.success('deleted')
+                    refetch()
                 }
             })
     }
