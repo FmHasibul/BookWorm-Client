@@ -1,5 +1,5 @@
 import DashboardLayouts from "../../Layouts/DashboardLayouts/DashboardLayouts";
-import Dashboard from "../../Pages/AdminRoute/Dashboard/Dashboard";
+// import Dashboard from "../../Pages/AdminRoute/Dashboard/Dashboard";
 import Allbuyers from "../../Pages/AdminRoute/Dashboard/ForAdmin/AllBuyers/Allbuyers";
 import Users from "../../Pages/AdminRoute/Dashboard/ForAdmin/AllBuyers/Users";
 import AllSellers from "../../Pages/AdminRoute/Dashboard/ForAdmin/AllSellers/AllSellers";
@@ -31,7 +31,7 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`),
+                loader: ({ params }) => fetch(`https://book-resell-server-fmhasibul.vercel.app/category/${params.id}`),
                 element: <Products />
             },
             {
@@ -54,20 +54,20 @@ const Router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Dashboard />
+                element: <PrivateRoute><MyOrders /></PrivateRoute>
             },
             {
                 path: '/dashboard/addProducts',
-                element: <AddProducts />
+                element: <PrivateRoute><AddProducts /></PrivateRoute>
             },
             {
                 path: '/dashboard/myProducts',
-                element: <MyProducts />
+                element: <PrivateRoute><MyProducts /></PrivateRoute>
             },
-            {
-                path: '/dashboard/orders',
-                element: <MyOrders />
-            },
+            // {
+            //     path: '/dashboard/orders',
+            //     element: <MyOrders />
+            // },
             {
                 path: '/dashboard/users',
                 element: <AdminRoute><Users /></AdminRoute>

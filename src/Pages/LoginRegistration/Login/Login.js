@@ -5,6 +5,7 @@ import { AuthContext } from '../../../Context/AuthContext/AuthProvider';
 import { GoogleAuthProvider } from 'firebase/auth';
 import useTitle from '../../../Hooks/UseTitle/useTitle';
 import useJWT from '../../../Hooks/useJWT';
+import toast from 'react-hot-toast';
 
 
 const Login = () => {
@@ -47,7 +48,12 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 saveUserInDb(user)
-                console.log(user);
+                console.log(user.email);
+                setUserEmail(user.email)
+                if (token) {
+                    toast.success('Account Created Successfully')
+                    navigate(from, { replace: true })
+                }
             })
             .catch((err) => {
                 console.log('error =', err)
@@ -61,7 +67,7 @@ const Login = () => {
             email,
             role: 'Buyer'
         }
-        fetch('http://localhost:5000/users', {
+        fetch('https://book-resell-server-fmhasibul.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

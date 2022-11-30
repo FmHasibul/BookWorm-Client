@@ -8,7 +8,7 @@ const Users = () => {
     const { data = [], isLoading, refetch } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/users", {
+            const res = await fetch("https://book-resell-server-fmhasibul.vercel.app/users", {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -19,7 +19,7 @@ const Users = () => {
     });
 
     const handleMakeAdmin = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://book-resell-server-fmhasibul.vercel.app/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -36,7 +36,7 @@ const Users = () => {
     }
     // Delete User 
     const handleDelete = (id) => {
-        const url = `http://localhost:5000/users/${id}`
+        const url = `https://book-resell-server-fmhasibul.vercel.app/users/${id}`
         fetch(url, {
             method: 'DELETE',
             headers: {

@@ -42,7 +42,7 @@ const DashboardLayouts = () => {
                                     </>
                                 }
                                 {/* for buyers  */}
-                                <li><Link to='/dashboard/orders'>My Orders</Link></li>
+                                <li><Link to='/dashboard'>My Orders</Link></li>
                             </>
                         }
                     </ul>

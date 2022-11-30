@@ -54,7 +54,7 @@ const AddProducts = () => {
                         picture,
                     }
                     console.log(productData);
-                    fetch(`http://localhost:5000/products`, {
+                    fetch(`https://book-resell-server-fmhasibul.vercel.app/products`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

@@ -4,7 +4,7 @@ import Progress from '../../../../Progress/Progress';
 
 const Allbuyers = () => {
 
-    const url = `http://localhost:5000/users/buyers?role=buyer`
+    const url = `https://book-resell-server-fmhasibul.vercel.app/users/buyers?role=buyer`
 
 
     const { data: users = [], isLoading } = useQuery({

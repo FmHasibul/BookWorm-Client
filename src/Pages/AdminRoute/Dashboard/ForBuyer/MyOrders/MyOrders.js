@@ -1,14 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../../../Context/AuthContext/AuthProvider';
+import useTitle from '../../../../../Hooks/UseTitle/useTitle';
 import Progress from '../../../../Progress/Progress';
 
 const MyOrders = () => {
+    useTitle('My Orders')
     const { user } = useContext(AuthContext)
 
 
 
-    const url = `http://localhost:5000/orders?email=${user?.email}`;
+    const url = `https://book-resell-server-fmhasibul.vercel.app/orders?email=${user?.email}`;
 
     const { data: orders = [], isLoading } = useQuery({
         queryKey: ['orders', user?.email],

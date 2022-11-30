@@ -6,7 +6,7 @@ import Progress from '../../../../Progress/Progress';
 
 
 const AllSellers = () => {
-    const url = `http://localhost:5000/users/sellers?role=seller`
+    const url = `https://book-resell-server-fmhasibul.vercel.app/users/sellers?role=seller`
     const { data: users = [], refetch, isLoading } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
@@ -22,7 +22,7 @@ const AllSellers = () => {
         }
     });
     const handleVerifySeller = (id) => {
-        const url = `http://localhost:5000/users/verify/${id}`
+        const url = `https://book-resell-server-fmhasibul.vercel.app/users/verify/${id}`
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -41,7 +41,7 @@ const AllSellers = () => {
     }
 
     const handleDelete = (id) => {
-        const url = `http://localhost:5000/users/${id}`
+        const url = `https://book-resell-server-fmhasibul.vercel.app/users/${id}`
         fetch(url, {
             method: 'DELETE',
             headers: {

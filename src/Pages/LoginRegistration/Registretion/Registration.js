@@ -10,7 +10,7 @@ import useJWT from '../../../Hooks/useJWT.js'
 
 const Registration = () => {
     const { createNewUser, userProfileInfo } = useContext(AuthContext)
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm()
     const [userEmail, setUserEmail] = useState('')
     useTitle('Registration')
 
@@ -44,7 +44,7 @@ const Registration = () => {
     }
     const saveUserInDb = (name, email, role) => {
         const user = { name, email, role }
-        fetch('http://localhost:5000/users', {
+        fetch('https://book-resell-server-fmhasibul.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -91,7 +91,8 @@ const Registration = () => {
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input {...register("password", { required: true })} type="text" placeholder="password" className="input input-bordered" />
+                        <input {...register("password", { required: true, minLength: 6 })} type="text" placeholder="password" className="input input-bordered" />
+                        {errors.password && <p>Password should be at least 6 Unit</p>}
                         <label className="label">
                             <p>Allready have an account ?<Link to='/login' className="label-text-alt link link-hover">Login</Link></p>
                         </label>

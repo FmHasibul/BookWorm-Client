@@ -3,10 +3,12 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import Progress from '../../Progress/Progress';
 
+// const vercel = https://book-resell-server-fmhasibul.vercel.app
+
 const BooksCategory = () => {
     const { data = [], isLoading } = useQuery({
         queryKey: ['data'],
-        queryFn: () => fetch(`http://localhost:5000/category`)
+        queryFn: () => fetch(`https://book-resell-server-fmhasibul.vercel.app/category`)
             .then(res => res.json())
 
     })

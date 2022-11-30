@@ -25,7 +25,7 @@ const OrderModal = ({ orderProduct, setOrderProduct }) => {
             sellerName
 
         }
-        fetch('http://localhost:5000/order', {
+        fetch('https://book-resell-server-fmhasibul.vercel.app/order', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
